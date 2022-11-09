@@ -2,9 +2,11 @@
     <string name="app_name">GameBasicsPoule</string>
     <string name="txtPouleSim">Poule Simulator</string>
     <string name="txtTeam1">Team 1</string>
-    <string name="txtTeam2">Team2</string>
+    <string name="txtTeam2">Team 2</string>
     <string name="txtVS">VS.</string>
     <string name="txtSimulate">Simulate</string>
     <string name="txtTeam4">Team 4</string>
     <string name="txtTeam3">Team 3</string>
+    <string name="txtTeamA">Team A</string>
+    <string name="txtTeamB">Team B</string>
 </resources>
