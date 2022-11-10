@@ -1,30 +1,36 @@
 package com.example.gamebasicspoule
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.exp
 
-class PouleSimAdapter : RecyclerView.Adapter<PouleSimAdapter.ViewHolder>() {
+class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : PouleSimInterface)
+    : RecyclerView.Adapter<PouleSimAdapter.ViewHolder>() {
 
-    private var teams = arrayOf(
-        Team("Team 1", 6, 0, 0, 0, 0),
-        Team("Team 2", 8, 0, 0, 0, 0),
-        Team("Team 3", 4, 0, 0, 0, 0),
-        Team("Team 4", 2, 0, 0, 0, 0)
-        )
+    // Holds the views for adding it to buttons and text
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var btn_TeamA : Button
+        var btn_TeamB : Button
+        var tv_Versus : TextView
+        var btn_Simulate : Button
+        var btn_Results : Button
 
-    private var games = arrayOf(
-        Game(teams[0], 0, 0,
-            teams[1], 0, 0,
-            false),
-        Game(teams[2], 0, 0,
-            teams[3], 0, 0,
-            false)
-    )
+        init {
+            btn_TeamA = itemView.findViewById(R.id.btnTeamA)
+            btn_TeamB = itemView.findViewById(R.id.btnTeamB)
+            tv_Versus = itemView.findViewById(R.id.tvVersus)
+            btn_Simulate= itemView.findViewById(R.id.btnSimulate)
+            btn_Results = itemView.findViewById(R.id.btnResults)
+        }
+
+    }
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PouleSimAdapter.ViewHolder {
@@ -44,7 +50,10 @@ class PouleSimAdapter : RecyclerView.Adapter<PouleSimAdapter.ViewHolder>() {
             //action
         }
         holder.btn_Simulate.setOnClickListener{
-            //action
+            //holder.btn_Simulate.visibility = View.GONE
+            var teamAGoals = MainActivity().CalculateGoalProbability(games[position].teamA.avgGoalsFor, games[position].teamB.avgGoalsAgainst)
+            var teamBGoals = MainActivity().CalculateGoalProbability(games[position].teamB.avgGoalsFor, games[position].teamA.avgGoalsAgainst)
+            Toast.makeText(holder.itemView.context, "Team A: $teamAGoals Team B: $teamBGoals" , Toast.LENGTH_SHORT).show();
         }
         holder.btn_Results.setOnClickListener{
             //action
@@ -58,21 +67,9 @@ class PouleSimAdapter : RecyclerView.Adapter<PouleSimAdapter.ViewHolder>() {
         return games.size
     }
 
-    // Holds the views for adding it to buttons and text
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var btn_TeamA : Button
-        var btn_TeamB : Button
-        var tv_Versus : TextView
-        var btn_Simulate : Button
-        var btn_Results : Button
-
-        init {
-            btn_TeamA = itemView.findViewById(R.id.btnTeamA)
-            btn_TeamB = itemView.findViewById(R.id.btnTeamB)
-            tv_Versus = itemView.findViewById(R.id.tvVersus)
-            btn_Simulate= itemView.findViewById(R.id.btnSimulate)
-            btn_Results = itemView.findViewById(R.id.btnResults)
-        }
-
+    interface PouleSimInterface
+    {
+        fun factorial(num: Int) : Long
+        fun CalculateGoalProbability(avgGoalsForTeamA: Int, avgGoalsAgainstTeamB: Int) : Int
     }
 }
