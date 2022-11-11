@@ -1,6 +1,5 @@
 package com.example.gamebasicspoule
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +8,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.exp
+
 
 class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : PouleSimInterface)
     : RecyclerView.Adapter<PouleSimAdapter.ViewHolder>() {
+
 
     // Holds the views for adding it to buttons and text
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -50,13 +50,17 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
             //action
         }
         holder.btn_Simulate.setOnClickListener{
-            //holder.btn_Simulate.visibility = View.GONE
-            var teamAGoals = MainActivity().CalculateGoalProbability(games[position].teamA.avgGoalsFor, games[position].teamB.avgGoalsAgainst)
-            var teamBGoals = MainActivity().CalculateGoalProbability(games[position].teamB.avgGoalsFor, games[position].teamA.avgGoalsAgainst)
+            holder.btn_Simulate.visibility = View.GONE
+            var teamAGoals = PouleSimActivity().calculateGoalProbability(games[position].teamA.avgGoalsFor, games[position].teamB.avgGoalsAgainst)
+            var teamBGoals = PouleSimActivity().calculateGoalProbability(games[position].teamB.avgGoalsFor, games[position].teamA.avgGoalsAgainst)
+            PouleSimActivity().addGameToPoule(games[position], teamAGoals, teamBGoals);
+            holder.btn_Results.visibility = View.VISIBLE
             Toast.makeText(holder.itemView.context, "Team A: $teamAGoals Team B: $teamBGoals" , Toast.LENGTH_SHORT).show();
+
         }
         holder.btn_Results.setOnClickListener{
-            //action
+            val intent = Intent(holder.itemView.context, ResultsActivity::class.java)
+            holder.itemView.context.startActivity(intent)
         }
         holder.btn_TeamA.text = games[position].teamA.teamName
         holder.btn_TeamB.text = games[position].teamB.teamName
@@ -70,6 +74,7 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
     interface PouleSimInterface
     {
         fun factorial(num: Int) : Long
-        fun CalculateGoalProbability(avgGoalsForTeamA: Int, avgGoalsAgainstTeamB: Int) : Int
+        fun calculateGoalProbability(avgGoalsForTeamA: Int, avgGoalsAgainstTeamB: Int) : Int
+        fun addGameToPoule(currentGame: Game, teamAGoals : Int, teamBGoals : Int)
     }
 }
