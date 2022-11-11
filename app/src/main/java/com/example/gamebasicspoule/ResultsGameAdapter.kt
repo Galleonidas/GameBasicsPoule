@@ -50,7 +50,7 @@ class ResultsGameAdapter(private val totalGames : ArrayList<Game>)
     //Load the Teams and Games in the Poule
         ResultsActivity().loadPouleData(Poule.teams)
 
-        val gameNumberString = "Game" + (position + 1).toString()
+        val gameNumberString = "Game" + totalGames[position].gameNumber.toString()
 
         holder.tv_GameNumber.text = gameNumberString
         holder.btn_GameTeamA.text = totalGames[position].teamA.teamName

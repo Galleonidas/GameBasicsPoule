@@ -16,6 +16,7 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
 
     // Holds the views for adding it to buttons and text
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var tv_GameNr: TextView
         var btn_TeamA : Button
         var btn_TeamB : Button
         var tv_Versus : TextView
@@ -23,6 +24,7 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
         var btn_Results : Button
 
         init {
+            tv_GameNr = itemView.findViewById(R.id.tvGameNr)
             btn_TeamA = itemView.findViewById(R.id.btnTeamA)
             btn_TeamB = itemView.findViewById(R.id.btnTeamB)
             tv_Versus = itemView.findViewById(R.id.tvVersus)
@@ -43,6 +45,10 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val gameNumber = "Game " + games[position].gameNumber.toString()
+        holder.tv_GameNr.text = gameNumber
+
         holder.btn_TeamA.setOnClickListener{
             //action
         }
@@ -51,21 +57,37 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
         }
         holder.btn_Simulate.setOnClickListener{
             holder.btn_Simulate.visibility = View.GONE
-            var teamAGoals = PouleSimActivity().calculateGoalProbability(games[position].teamA.avgGoalsFor, games[position].teamB.avgGoalsAgainst)
-            var teamBGoals = PouleSimActivity().calculateGoalProbability(games[position].teamB.avgGoalsFor, games[position].teamA.avgGoalsAgainst)
-            PouleSimActivity().addGameToPoule(games[position], teamAGoals, teamBGoals);
+            var teamAGoalsR1 = PouleSimActivity().calculateGoalProbability(games[position].teamA.avgGoalsFor, games[position].teamB.avgGoalsAgainst)
+            var teamBGoalsR1 = PouleSimActivity().calculateGoalProbability(games[position].teamB.avgGoalsFor, games[position].teamA.avgGoalsAgainst)
+            games[position].teamAGoals = teamAGoalsR1
+            games[position].teamBGoals = teamBGoalsR1
+            PouleSimActivity().addGameToPoule(games[position], teamAGoalsR1, teamBGoalsR1);
+
             holder.btn_Results.visibility = View.VISIBLE
-            Toast.makeText(holder.itemView.context, "Team A: $teamAGoals Team B: $teamBGoals" , Toast.LENGTH_SHORT).show();
+
             Toast.makeText(holder.itemView.context, "Number of games in Poule" + Poule.games.size , Toast.LENGTH_SHORT).show();
+//            Toast.makeText(holder.itemView.context, "Number of Teams in Poule" + Poule.teams.size , Toast.LENGTH_SHORT).show();
 
 
         }
         holder.btn_Results.setOnClickListener{
             val intent = Intent(holder.itemView.context, ResultsActivity::class.java)
             holder.itemView.context.startActivity(intent)
+
         }
         holder.btn_TeamA.text = games[position].teamA.teamName
         holder.btn_TeamB.text = games[position].teamB.teamName
+
+        // If the games have been simulated, only give visibility to the results button
+        for(game in Poule.games)
+        {
+            if(games[position].gameNumber == game.gameNumber)
+            {
+                holder.btn_Simulate.visibility = View.GONE
+                holder.btn_Results.visibility = View.VISIBLE
+            }
+        }
+
     }
 
     // return the number of the items in the list

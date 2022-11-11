@@ -24,12 +24,25 @@ class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface 
 
     //holds an arraylist of games
     private var games : ArrayList<Game> = arrayListOf(
-        Game(teams[0], 0,
+        Game(1, teams[0], 0,
              teams[1], 0,
             false),
-        Game(teams[2], 0,
+        Game(2, teams[0], 0,
+            teams[1], 0,
+            false),
+        Game(3, teams[0], 0,
+            teams[1], 0,
+            false),
+        Game(4, teams[2], 0,
              teams[3], 0,
+            false),
+        Game(5, teams[2], 0,
+            teams[3], 0,
+            false),
+        Game(6, teams[2], 0,
+            teams[3], 0,
             false)
+
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +56,11 @@ class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface 
         recyclerView.layoutManager = layoutManager
         pouleSimAdapter = PouleSimAdapter(games, this)
         recyclerView.adapter = pouleSimAdapter;
-
-        for(team in teams)
-        {
-            Poule.addTeam(team)
-        }
+//        Poule.teams.clear()
+//        for(team in teams)
+//        {
+//            Poule.addTeam(team)
+//        }
 
     }
 
@@ -82,11 +95,51 @@ class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface 
         return goalOccurrences - 1;
     }
 
+    // Add the currently simulated game into the Poule object's games list
     override fun addGameToPoule(currentGame: Game, teamAGoals : Int, teamBGoals : Int)
     {
         currentGame.teamAGoals = teamAGoals
         currentGame.teamBGoals = teamBGoals
+
         Poule.addGame(currentGame);
+
+
+
+        // Also, add teams to Poule if they do not exist in its team list yet
+        val teamAInPoule = Poule.teams.any{ Team -> Team.teamName == currentGame.teamA.teamName }
+        val teamBInPoule = Poule.teams.any{ Team -> Team.teamName == currentGame.teamB.teamName }
+        if(!teamAInPoule)
+        {
+            Poule.teams.add(currentGame.teamA)
+        }
+        if(!teamBInPoule)
+        {
+            Poule.teams.add(currentGame.teamB)
+        }
+//        if(currentGame.teamA.teamName.any(Poule.teams.contains()))
+//        for(team in Poule.teams)
+//        {
+//            val integer = 0;
+//            if(team.teamName == currentGame.teamA.teamName)
+//            {
+//                integer + 1
+//            }
+//            if(integer == 0)
+//            {
+//                Poule.teams.add(currentGame.teamA)
+//                Poule.teams.any()
+//
+//                Poule.teams.any{ Team -> Team.teamName == currentGame.teamA.teamName }
+//            }
+//        }
+//        if(currentGame.teamA !in Poule.teams)
+//        {
+//            Poule.teams.add(currentGame.teamA)
+//        }
+//        if(currentGame.teamB !in Poule.teams)
+//        {
+//            Poule.teams.add(currentGame.teamB)
+//        }
 
     }
 

@@ -7,24 +7,35 @@
         tools:context=".ResultsActivity"
         android:orientation="vertical">
     <androidx.core.widget.NestedScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
-            <TextView
-                android:id="@+id/tvPouleResults"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Poule Results"
-                android:textColor="#009688"
-                android:textSize="34sp"
-                tools:layout_editor_absoluteX="176dp"
-                tools:layout_editor_absoluteY="16dp"
-                android:padding="10dp"/>
-
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Back"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/tvPouleResults"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtPouleResults"
+                    android:textColor="#009688"
+                    android:textSize="34sp"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+            </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/teamRecyclerview"
                 android:layout_width="match_parent"
