@@ -44,10 +44,10 @@ class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface 
         pouleSimAdapter = PouleSimAdapter(games, this)
         recyclerView.adapter = pouleSimAdapter;
 
-//        for(team in teams)
-//        {
-//            Poule.addTeam(team)
-//        }
+        for(team in teams)
+        {
+            Poule.addTeam(team)
+        }
 
     }
 

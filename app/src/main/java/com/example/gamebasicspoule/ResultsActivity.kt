@@ -9,8 +9,8 @@ class ResultsActivity : AppCompatActivity() {
 
     private var teamLayoutManager: RecyclerView.LayoutManager? = null
     private var gameLayoutManager: RecyclerView.LayoutManager? = null
-    private var teamResultsAdapter: RecyclerView.Adapter<TeamResultsAdapter.ViewHolder>? = null
-    private var gameResultsAdapter: RecyclerView.Adapter<GameResultsAdapter.ViewHolder>? = null
+    private var resultsTeamAdapter: RecyclerView.Adapter<ResultsTeamAdapter.ViewHolder>? = null
+    private var resultsGameAdapter: RecyclerView.Adapter<ResultsGameAdapter.ViewHolder>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +23,11 @@ class ResultsActivity : AppCompatActivity() {
         gameLayoutManager = LinearLayoutManager(this)
 
         teamRecyclerView.layoutManager = teamLayoutManager
-        teamResultsAdapter = TeamResultsAdapter(Poule.teams)
-        teamRecyclerView.adapter = teamResultsAdapter;
+        resultsTeamAdapter = ResultsTeamAdapter(Poule.teams)
+        teamRecyclerView.adapter = resultsTeamAdapter;
 
         gameRecyclerView.layoutManager = gameLayoutManager
-        gameResultsAdapter = GameResultsAdapter(Poule.games)
-        gameRecyclerView.adapter = gameResultsAdapter
+        resultsGameAdapter = ResultsGameAdapter(Poule.games)
+        gameRecyclerView.adapter = resultsGameAdapter
     }
 }

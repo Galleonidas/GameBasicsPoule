@@ -5,11 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class TeamResultsAdapter(private val teams : ArrayList<Team>)
-    : RecyclerView.Adapter<TeamResultsAdapter.ViewHolder>() {
+class ResultsGameAdapter(private val totalGames : ArrayList<Game>)
+    : RecyclerView.Adapter<ResultsGameAdapter.ViewHolder>() {
 
     // Holds the views for adding it to buttons and text
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,13 +21,14 @@ class TeamResultsAdapter(private val teams : ArrayList<Team>)
             btn_TeamResults = itemView.findViewById(R.id.btnTeamResults)
             tv_Points = itemView.findViewById(R.id.tvPoints)
         }
+
     }
 
     // create new views
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamResultsAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsGameAdapter.ViewHolder {
         // inflates the card_view_design view
         // that is used to hold list item
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.poule_sim_card_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.game_results_card_view, parent, false)
 
         return ViewHolder(view)
     }
@@ -40,7 +40,7 @@ class TeamResultsAdapter(private val teams : ArrayList<Team>)
 
     // return the number of the items in the list
     override fun getItemCount(): Int {
-        return teams.size
+        return totalGames.size
     }
 
     interface TeamResultsInterface
