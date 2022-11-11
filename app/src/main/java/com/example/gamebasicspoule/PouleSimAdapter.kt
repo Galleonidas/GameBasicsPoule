@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : PouleSimInterface)
     : RecyclerView.Adapter<PouleSimAdapter.ViewHolder>() {
 
-
     // Holds the views for adding it to buttons and text
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tv_GameNr: TextView
@@ -47,13 +46,14 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val gameNumber = "Game " + games[position].gameNumber.toString()
+
         holder.tv_GameNr.text = gameNumber
 
         holder.btn_TeamA.setOnClickListener{
-            //action
+            //action to send user to activity that shows team strength and defense
         }
         holder.btn_TeamB.setOnClickListener{
-            //action
+            //action to send user to activity that shows team strength and defense
         }
         holder.btn_Simulate.setOnClickListener{
             holder.btn_Simulate.visibility = View.GONE
@@ -78,23 +78,67 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
         holder.btn_TeamA.text = games[position].teamA.teamName
         holder.btn_TeamB.text = games[position].teamB.teamName
 
+
         // If the games have been simulated, only give visibility to the results button
-        for(game in Poule.games)
+        val isGameInPoule = Poule.games.any{ Game -> Game.gameNumber == games[position].gameNumber}
+        if(isGameInPoule)
         {
-            if(games[position].gameNumber == game.gameNumber)
+            holder.btn_Simulate.visibility = View.GONE
+            holder.btn_Results.visibility = View.VISIBLE
+
+        }
+
+//        for(game in games)
+//        {
+//            if(!game.gameFinished)
+//            {
+//
+//            }
+//            if(game == games[position])
+//            {
+//                holder.btn_Simulate.visibility = View.GONE
+//                Toast.makeText(holder.itemView.context, games[position].gameFinished.toString() , Toast.LENGTH_SHORT).show();
+//            }
+//        }
+        if(!games[position].gameFinished)
+        {
+            holder.btn_Simulate.visibility = View.GONE
+            Toast.makeText(holder.itemView.context, games[position].gameFinished.toString() , Toast.LENGTH_SHORT).show();
+        }
+
+        val unfinishedGames = filterUnfinishedGames(games)
+
+        for(game in unfinishedGames)
+        {
+            if(games[position].gameNumber == game.gameNumber && game == unfinishedGames[0])
             {
-                holder.btn_Simulate.visibility = View.GONE
-                holder.btn_Results.visibility = View.VISIBLE
+                holder.btn_Simulate.visibility = View.VISIBLE
+                Toast.makeText(holder.itemView.context, games[position].gameFinished.toString() , Toast.LENGTH_SHORT).show();
             }
         }
 
     }
 
-    // return the number of the items in the list
+    fun filterUnfinishedGames(checkGames: ArrayList<Game>) : ArrayList<Game>
+    {
+        val unfinishedGames = arrayListOf<Game>()
+        for(game in checkGames)
+        {
+            val isGameInPoule = Poule.games.any{ Game -> Game.gameNumber == game.gameNumber}
+            if(!game.gameFinished && !isGameInPoule)
+            {
+                unfinishedGames.add(game)
+            }
+        }
+        return unfinishedGames
+    }
+
+    // return the number of the items in the games list
     override fun getItemCount(): Int {
         return games.size
     }
 
+    //interface for callback via MainActivity() methods to Adapter class
     interface PouleSimInterface
     {
         fun factorial(num: Int) : Long

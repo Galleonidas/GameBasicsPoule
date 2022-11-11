@@ -3,12 +3,13 @@ package com.example.gamebasicspoule
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.exp
 
-
+// The launcher page
 class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
@@ -45,9 +46,21 @@ class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface 
 
     )
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val btn_Resimulate = findViewById<Button>(R.id.btnResimulate)
+
+        btn_Resimulate.setOnClickListener{
+            Poule.teams.clear()
+            Poule.games.clear()
+            finish()
+            val intent = Intent(this, PouleSimActivity::class.java)
+            startActivity(intent)
+        }
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
 
@@ -56,11 +69,6 @@ class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface 
         recyclerView.layoutManager = layoutManager
         pouleSimAdapter = PouleSimAdapter(games, this)
         recyclerView.adapter = pouleSimAdapter;
-//        Poule.teams.clear()
-//        for(team in teams)
-//        {
-//            Poule.addTeam(team)
-//        }
 
     }
 
@@ -100,19 +108,19 @@ class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface 
     {
         currentGame.teamAGoals = teamAGoals
         currentGame.teamBGoals = teamBGoals
-
+        currentGame.gameFinished = true;
         Poule.addGame(currentGame);
 
 
 
         // Also, add teams to Poule if they do not exist in its team list yet
-        val teamAInPoule = Poule.teams.any{ Team -> Team.teamName == currentGame.teamA.teamName }
-        val teamBInPoule = Poule.teams.any{ Team -> Team.teamName == currentGame.teamB.teamName }
-        if(!teamAInPoule)
+        val isTeamAInPoule = Poule.teams.any{ Team -> Team.teamName == currentGame.teamA.teamName }
+        val isTeamBInPoule = Poule.teams.any{ Team -> Team.teamName == currentGame.teamB.teamName }
+        if(!isTeamAInPoule)
         {
             Poule.teams.add(currentGame.teamA)
         }
-        if(!teamBInPoule)
+        if(!isTeamBInPoule)
         {
             Poule.teams.add(currentGame.teamB)
         }
