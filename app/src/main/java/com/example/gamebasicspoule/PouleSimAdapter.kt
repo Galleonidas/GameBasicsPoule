@@ -56,6 +56,8 @@ class PouleSimAdapter(private val games : ArrayList<Game>, pouleSimInterface : P
             PouleSimActivity().addGameToPoule(games[position], teamAGoals, teamBGoals);
             holder.btn_Results.visibility = View.VISIBLE
             Toast.makeText(holder.itemView.context, "Team A: $teamAGoals Team B: $teamBGoals" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(holder.itemView.context, "Number of games in Poule" + Poule.games.size , Toast.LENGTH_SHORT).show();
+
 
         }
         holder.btn_Results.setOnClickListener{

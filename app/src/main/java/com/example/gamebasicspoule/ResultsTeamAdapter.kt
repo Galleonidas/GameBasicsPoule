@@ -25,7 +25,7 @@ class ResultsTeamAdapter(private val teams : ArrayList<Team>)
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsTeamAdapter.ViewHolder {
-        // inflates the card_view_design view
+        // inflates the card_view
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context).inflate(R.layout.results_team_card_view, parent, false)
 
@@ -36,7 +36,7 @@ class ResultsTeamAdapter(private val teams : ArrayList<Team>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         //Load the Teams and Games in the Poule
-        ResultsActivity().loadPouleData(Poule.teams, Poule.games)
+        ResultsActivity().loadPouleData(Poule.teams)
 
         //Sort the team based on descending order of points, then goalDifference, then goalsFor, then goalsAgainst
         val sortedTeam = teams.sortedWith(compareBy({-it.points}, {-it.goalsDifference}, {-it.goalsFor}, {-it.goalsAgainst}))
@@ -51,7 +51,7 @@ class ResultsTeamAdapter(private val teams : ArrayList<Team>)
         return teams.size
     }
 
-    interface TeamResultsInterface
+    interface ResultsTeamInterface
     {
         //stuff
     }

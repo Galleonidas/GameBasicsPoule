@@ -31,7 +31,7 @@ class ResultsActivity : AppCompatActivity() {
         gameRecyclerView.adapter = resultsGameAdapter
     }
 
-    fun loadPouleData(teams: ArrayList<Team>, totalGames: ArrayList<Game>)
+    fun loadPouleData(teams: ArrayList<Team>)
     {
         for(team in teams)
         {

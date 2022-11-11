@@ -87,6 +87,7 @@ class PouleSimActivity : AppCompatActivity(), PouleSimAdapter.PouleSimInterface 
         currentGame.teamAGoals = teamAGoals
         currentGame.teamBGoals = teamBGoals
         Poule.addGame(currentGame);
+
     }
 
 

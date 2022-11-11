@@ -6,30 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".PouleSimActivity"
     android:orientation="vertical">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/tvPouleSim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtPouleSim"
-        android:textColor="#009688"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.078"
-        android:layout_gravity="center"
-        android:padding="10dp"/>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvPouleSim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtPouleSim"
+                android:textColor="#009688"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.078"
+                android:layout_gravity="center"
+                android:padding="10dp"/>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:itemCount="5"
-        tools:listitem="@layout/poule_sim_card_view" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="5"
+                tools:listitem="@layout/poule_sim_card_view" />
 
-
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="130dp"
     android:layout_margin="10dp"
     app:cardElevation="6dp">
 
@@ -70,7 +70,7 @@
             android:orientation="horizontal"
             android:gravity="center">
             <TextView
-                android:id="@+id/tvEmpty1"
+                android:id="@+id/tvTeamGoals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -88,7 +88,7 @@
                 android:text="Goals"
                 android:textSize="20sp" />
             <TextView
-                android:id="@+id/tvEmpty3"
+                android:id="@+id/tvEmpty1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
@@ -112,7 +112,7 @@
             android:orientation="horizontal"
             android:gravity="center">
             <TextView
-                android:id="@+id/tvEmpty2"
+                android:id="@+id/tvTeamPoints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
                 android:gravity="center"
-                android:text="        "
+                android:text="          "
                 android:textSize="20sp"
                 android:textStyle="bold" />
             <TextView
