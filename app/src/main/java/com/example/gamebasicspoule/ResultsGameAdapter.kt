@@ -28,7 +28,7 @@ class ResultsGameAdapter(private val totalGames : ArrayList<Game>)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsGameAdapter.ViewHolder {
         // inflates the card_view_design view
         // that is used to hold list item
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.game_results_card_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.results_game_card_view, parent, false)
 
         return ViewHolder(view)
     }

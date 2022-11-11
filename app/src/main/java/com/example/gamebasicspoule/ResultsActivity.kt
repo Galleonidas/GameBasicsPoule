@@ -30,4 +30,46 @@ class ResultsActivity : AppCompatActivity() {
         resultsGameAdapter = ResultsGameAdapter(Poule.games)
         gameRecyclerView.adapter = resultsGameAdapter
     }
+
+    fun loadPouleData(teams: ArrayList<Team>, totalGames: ArrayList<Game>)
+    {
+        for(team in teams)
+        {
+            team.goalsFor = 0
+            team.goalsAgainst = 0
+            team.goalsDifference = 0
+            team.points = 0
+            for(game in Poule.games)
+            {
+                if(team == game.teamA)
+                {
+                    team.goalsFor += game.teamAGoals
+                    team.goalsAgainst += game.teamBGoals
+                    team.goalsDifference += (game.teamAGoals - game.teamBGoals)
+                    if(game.teamAGoals > game.teamBGoals)
+                    {
+                        team.points += 3
+                    }
+                    else if(game.teamAGoals == game.teamBGoals)
+                    {
+                        team.points += 1
+                    }
+                }
+                else if(team == game.teamB)
+                {
+                    team.goalsFor += game.teamBGoals
+                    team.goalsAgainst += game.teamAGoals
+                    team.goalsDifference += (game.teamBGoals - game.teamAGoals)
+                    if(game.teamBGoals > game.teamAGoals)
+                    {
+                        team.points += 3
+                    }
+                    else if(game.teamBGoals == game.teamAGoals)
+                    {
+                        team.points += 1
+                    }
+                }
+            }
+        }
+    }
 }

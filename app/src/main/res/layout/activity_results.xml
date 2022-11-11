@@ -24,13 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:itemCount="5"
-        tools:listitem="@layout/team_results_card_view" />
+        tools:listitem="@layout/results_team_card_view" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gameRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:itemCount="5"
-            tools:listitem="@layout/game_results_card_view" />
+            tools:listitem="@layout/results_game_card_view" />
     <Button
         android:id="@+id/btnTeamAResults"
         android:layout_width="wrap_content"
